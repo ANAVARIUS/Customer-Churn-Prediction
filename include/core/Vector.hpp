@@ -5,7 +5,6 @@
 #include <cstddef>
 #include <type_traits>
 #include <stdexcept>
-
 class Vector
 {
     public:

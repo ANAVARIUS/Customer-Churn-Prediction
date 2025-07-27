@@ -45,11 +45,13 @@ bool Vector::operator==(const Vector& other) const
 };
 double& Vector::operator[](long long index)
 {
-    if(index >= data_.size() || index < 0) throw std::out_of_range("Vector::operator[]");
+    if(index < 0 || static_cast<size_t>(index) >= data_.size())
+        throw std::out_of_range("Vector::operator[]");
     return data_[index];
 };
 const double& Vector::operator[](long long index) const
 {
-    if(index >= data_.size() || index < 0) throw std::out_of_range("Vector::operator[]");
+    if(index < 0 || static_cast<size_t>(index) >= data_.size())
+        throw std::out_of_range("Vector::operator[]");
     return data_[index];
 };
