@@ -53,8 +53,8 @@ TEST_CASE("PRODUCTO POR ESCALAR", "[]")
     Vector v2 = {1, 2, 3, 4};
     double scalar = 8;
     REQUIRE(v1*scalar == Vector({8, 16, 24, 32}));
-    double v3 = v2.dot(v2);
-    REQUIRE(v3*scalar == 30);
+    double dotProduct = v2.dot(v2);
+    REQUIRE(dotProduct*scalar == 240);
 }
 
 TEST_CASE("PRUEBA DE IGUALDAD", "[vector]")
@@ -65,9 +65,9 @@ TEST_CASE("PRUEBA DE IGUALDAD", "[vector]")
     Vector v4 = {5.000000001, 6.0, 7.0, 8.0};
     Vector v5 = {5, 6, 7, 8};
     REQUIRE(v1 == v2);
-    REQUIRE(v1 == {1, 2, 3, 4});
+    REQUIRE(v1 == Vector({1, 2, 3, 4}));
     REQUIRE(v1 != v3);
-    REQUIRE(v1 != {15, 35, 55, 7});
+    REQUIRE(v1 != Vector({15, 35, 55, 7}));
     REQUIRE(v4 == v5);
 }
 
@@ -83,8 +83,8 @@ TEST_CASE("OPERACIONES CON DIFERENTES TAMAÑOS", "[vector]")
 TEST_CASE("NORMA DE UN VECTOR", "[vector]")
 {
     Vector v1 = {1, 2, 3, 4};
-    REQUIRE(v1.magnitude() == Approx(5.477).epsilon(1e-9));
-    REQUIRE(v1.magnitude() == Vector({4, 3, 2, 1}));
+    REQUIRE(v1.magnitude() == Approx(5.477225575).epsilon(1e-9));
+    REQUIRE(v1.magnitude() == Vector({4, 3, 2, 1}).magnitude());
 }
 
 TEST_CASE("COPY Y MOVE", "[vector]")
@@ -95,6 +95,6 @@ TEST_CASE("COPY Y MOVE", "[vector]")
     v3[1] = 12.4;
     REQUIRE(v3 != v1);
     Vector v4 = std::move(v2);
-    REQUIRE(v4 == Vector({27, 31, 55, 2}))
-    Require(v2.size == 0)
+    REQUIRE(v4 == Vector({27, 31, 55, 2}));
+    REQUIRE(v2.size() == 0);
 }

@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <type_traits>
 #include <stdexcept>
+#include <cmath>
 class Vector
 {
     public:
@@ -24,10 +25,12 @@ class Vector
         explicit Vector(long long size);
         size_t size() const;
         double dot(const Vector& other) const;
+        double magnitude() const;
         Vector operator+(const Vector& other) const;
         Vector operator-(const Vector& other) const;
         Vector operator*(double scalar) const;
         bool operator==(const Vector& other) const;
+        bool operator!=(const Vector& other) const;
         double& operator[](long long index);
         const double& operator[](long long index) const;
     private:

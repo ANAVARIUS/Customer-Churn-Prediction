@@ -1,6 +1,13 @@
 #ifndef CUSTOMER_CHURN_PREDICTION_LOGGER_HPP
 #define CUSTOMER_CHURN_PREDICTION_LOGGER_HPP
 #include<fstream>
+#include<string>
+#include<cstddef>
+#include<stdexcept>
+#include<mutex>
+#include<ctime>
+#include<iomanip>
+#include<iostream>
 class Logger
 {
     public:

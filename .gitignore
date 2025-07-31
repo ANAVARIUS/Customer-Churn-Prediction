@@ -1,2 +1,4 @@
 .idea/
 logistic_churn
+logs/
+run_tests

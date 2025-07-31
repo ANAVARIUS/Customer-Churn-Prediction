@@ -1,5 +1,6 @@
 #include "../../include/core/Vector.hpp"
 
+//----------Vector methods----------//
 Vector::Vector() = default;
 Vector::Vector(long long size)
 {
@@ -16,6 +17,12 @@ double Vector::dot(const Vector& other) const
     double result = 0.0;
     for(size_t i = 0; i < size(); ++i) result += data_[i] * other[i];
     return result;
+};
+double Vector::magnitude() const
+{
+    double result = 0.0;
+    for(size_t i = 0; i < size(); ++i) result += data_[i] * data_[i];
+    return sqrt(result);
 };
 Vector Vector::operator+(const Vector& other) const
 {
@@ -40,8 +47,13 @@ Vector Vector::operator*(double scalar) const
 bool Vector::operator==(const Vector& other) const
 {
     if(data_.size() != other.size()) return false;
-    for(size_t i = 0; i < size(); ++i) if(data_[i] != other[i]) return false;
+    for(size_t i = 0; i < size(); ++i)
+        if(data_[i] < other[i]-1e-9 || data_[i] > other[i]+1e-9) return false;
     return true;
+};
+bool Vector::operator!=(const Vector& other) const
+{
+    return !(*this == other);
 };
 double& Vector::operator[](long long index)
 {

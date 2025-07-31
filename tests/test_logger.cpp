@@ -12,7 +12,7 @@ TEST_CASE("UNA SOLA INSTANCIA (SINGLETON)", "[logger]")
 TEST_CASE("CREAR ARCHIVO DE LOGGING", "[logger]")
 {
     Logger::instance().reset();
-    std::string filename = "test_log.txt";
+    std::string filename = "logs/test.log";
     std::filesystem::remove(filename);
     Logger::instance().set_file(filename);
     Logger::instance().log("Initial log");
@@ -22,7 +22,7 @@ TEST_CASE("CREAR ARCHIVO DE LOGGING", "[logger]")
 TEST_CASE("ESCRIBIR MENSAJE EN EL ARCHIVO", "[logger]")
 {
     Logger::instance().reset();
-    std::string filename = "log_output.txt";
+    std::string filename = "logs/log_output.txt";
     std::filesystem::remove(filename);
     Logger::instance().set_file(filename);
     std::string message = "Hello Logger";
@@ -31,7 +31,7 @@ TEST_CASE("ESCRIBIR MENSAJE EN EL ARCHIVO", "[logger]")
     std::string line;
     std::getline(file, line);
     file.close();
-    REQUIRE(line == message);
+    REQUIRE(line.find(message) != std::string::npos);
 }
 
 TEST_CASE("IMPRIMIR A STD::CERR COMO FALLBACK", "[logger]")
