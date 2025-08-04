@@ -13,6 +13,6 @@ namespace CSVReader
     std::vector<Vector> preprocess( const std::vector<std::vector<std::string>>& data,
                                     bool hasHeader,
                                     int churnColumn,
-                                    vector<int> dropColumns);
+                                    std::vector<int> dropColumns);
 }
 #endif

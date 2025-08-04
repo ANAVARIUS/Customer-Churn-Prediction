@@ -55,15 +55,11 @@ bool Vector::operator!=(const Vector& other) const
 {
     return !(*this == other);
 };
-double& Vector::operator[](long long index)
+double& Vector::operator[](size_t index)
 {
-    if(index < 0 || static_cast<size_t>(index) >= data_.size())
-        throw std::out_of_range("Vector::operator[]");
-    return data_[index];
+    return data_.at(index);
 };
-const double& Vector::operator[](long long index) const
+const double& Vector::operator[](size_t index) const
 {
-    if(index < 0 || static_cast<size_t>(index) >= data_.size())
-        throw std::out_of_range("Vector::operator[]");
-    return data_[index];
+    return data_.at(index);
 };

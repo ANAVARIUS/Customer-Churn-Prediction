@@ -1,7 +1,7 @@
 #ifndef CUSTOMER_CHURN_PREDICTION_VECTOR_HPP
 #define CUSTOMER_CHURN_PREDICTION_VECTOR_HPP
-#include<vector>
-#include<initializer_list>
+#include <vector>
+#include <initializer_list>
 #include <cstddef>
 #include <type_traits>
 #include <stdexcept>
@@ -31,8 +31,8 @@ class Vector
         Vector operator*(double scalar) const;
         bool operator==(const Vector& other) const;
         bool operator!=(const Vector& other) const;
-        double& operator[](long long index);
-        const double& operator[](long long index) const;
+        double& operator[](size_t index);
+        const double& operator[](size_t index) const;
     private:
         std::vector<double> data_;
 };

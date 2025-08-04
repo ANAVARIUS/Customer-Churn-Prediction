@@ -1,5 +1,6 @@
 #include"../../include/utils/CSVReader.hpp"
 
+//----------Util CSVReader functions----------//
 std::vector<std::vector<std::string>> CSVReader::readCSV(const std::string& filePath)
 {
     std::ifstream file(filePath);

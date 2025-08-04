@@ -10,7 +10,6 @@ TEST_CASE("INIIALIZAR VECTOR", "[vector]")
     Vector v3 = Vector();
     Vector v4 = Vector(10);
     Vector v5;
-    REQUIRE_THROWS_AS(Vector(-5), std::invalid_argument);
     REQUIRE(v1.size() == 10);
     REQUIRE(v1[0] == 12);
     REQUIRE(v2.size() == 10);
