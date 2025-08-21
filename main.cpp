@@ -7,5 +7,6 @@ int main()
 {
     auto data = CSVReader::readCSV("data/WA_Fn-UseC_-Telco-Customer-Churn.csv");
     auto processedDATA = CSVReader::preprocess(data, true, 20, {0});
+    for(const auto& header : processedDATA.headers) std::cout<<header<<" | ";
     return 0;
 }
