@@ -10,17 +10,22 @@ std::pair<ProcessedData, ProcessedData> RandomSplitter::split(const ProcessedDat
     std::shuffle(indices.begin(), indices.end(), rng);
     size_t limit = static_cast<size_t>(dataSize * ratio);
     ProcessedData train, test;
+    std::vector<Vector> trainFeatures, testFeatures;
+    std::vector<double> trainChurnResults, testChurnResults;
     for (size_t i = 0; i < limit; ++i)
     {
-        train.features.push_back(shuffledData[indices[i]]);
-        train.churnResults.push_back(churnResults[indices[i]]);
+        trainFeatures.push_back(shuffledData[indices[i]]);
+        trainChurnResults.push_back(churnResults[indices[i]]);
     }
-
+    train.features = trainFeatures;
+    train.churnResults = trainChurnResults;
     for (size_t i = limit; i < dataSize; ++i)
     {
-        test.features.push_back(shuffledData[indices[i]]);
-        test.churnResults.push_back(churnResults[indices[i]]);
+        testFeatures.push_back(shuffledData[indices[i]]);
+        testChurnResults.push_back(churnResults[indices[i]]);
     }
+    test.features = testFeatures;
+    test.churnResults = testChurnResults;
     train.headers = test.headers = data.headers;
     return {train, test};
 }

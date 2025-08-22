@@ -3,10 +3,11 @@
 #include <vector>
 #include <string>
 #include "Matrix.hpp"
+#include "Vector.hpp"
 struct ProcessedData
 {
     Matrix features;
     std::vector<std::string> headers;
-    std::vector<double> churnResults;
+    Vector churnResults;
 };
 #endif

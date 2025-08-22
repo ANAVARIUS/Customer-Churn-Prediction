@@ -3,17 +3,19 @@
 #include <iostream>
 #include <stdexcept>
 #include <cstddef>
-#include <pair>
 #include <algorithm>
 #include <random>
+#include <vector>
+#include "Matrix.hpp"
+#include "Vector.hpp"
+#include "ProcessedData.hpp"
 struct Splitter
 {
-    virtual std::pair<ProcessedData, ProcessedData>split(const ProcessedData& data, double& ratio) = 0;
-    virtual Splitter() = default;
+    virtual std::pair<ProcessedData, ProcessedData> split(const ProcessedData& data, const double ratio) = 0;
 };
 
-struct RamdomSplitter : public Splitter
+struct RandomSplitter : public Splitter
 {
-    std::pair<ProcessedData, ProcessedData>split(const ProcessedData& data, const double ratio) override;
+    std::pair<ProcessedData, ProcessedData> split(const ProcessedData& data, const double ratio) override;
 };
 #endif
