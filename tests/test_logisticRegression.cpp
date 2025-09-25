@@ -4,7 +4,7 @@
 #include "../include/core/Vector.hpp"
 #include "../include/core/ProcessedData.hpp"
 #include "../include/model/LogisticRegression.hpp"
-//T0 RUN THESE TESTS, FIRST MAKE EVERY ATTRIBUTE ON THE LogisticRegression class public
+//T0 RUN THESE TESTS, FIRST MAKE EVERY ATTRIBUTE ON THE LogisticRegression CLASS PUBLIC
 TEST_CASE("SIGMOID PRODUCES VALUES BETWEEN 0 AND 1", "[model]")
 {
     LogisticRegression model(1);

@@ -4,12 +4,12 @@
 #include <stdexcept>
 #include <cstddef>
 #include <vector>
+#include <cmath>
 #include "../core/Vector.hpp"
 #include "../core/Matrix.hpp"
 #include "../core/ProcessedData.hpp"
-namespace Churn::Model
-{
-    class LogisticRegression
+
+class LogisticRegression
 {
     public:
         LogisticRegression(size_t n_features);
@@ -22,12 +22,12 @@ namespace Churn::Model
         void save(const std::string& filename) const;
         void load(const std::string& filename);
     private:
-        Core::Vector weights;
+        Vector weights;
         double bias;
+        double loss;
         double sigmoid(const double z);
-        double computeLoss(const ProcessedData& data) const; //Calculates Loss using cross enthropy loss function
-        void computeGradients(const ProcessedData& data,
-                              Vector& grad_w, double& grad_b) const;
+        double computeLoss(const double y_true, const double y_pred) const; //Calculates Loss using cross enthropy loss function
+        void updateWeights(const ProcessedData& data, const double& alpha) const;
     };
 }
 
