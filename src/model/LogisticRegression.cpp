@@ -7,7 +7,7 @@ LogisticRegression::LogisticRegression(size_t n_features)
     loss = 0.0;
 }
 
-double LogisticRegression::sigmoid(const double z)
+double LogisticRegression::sigmoid(const double z) const
 {
     return 1.0 / (1.0 + std::exp(-z));
 }
@@ -18,8 +18,16 @@ double LogisticRegression::predict(const Vector& x) const {
 }
 
 void LogisticRegression::train(const ProcessedData& data, double alpha, int epochs) {
-    for (int e = 0; e < epochs; e++) {
-        loss = computeLoss(data.churnResults[i], predict(data.features[i]));
+    int interval = std::max(1, epochs / 100);
+    for (int e = 0; e < epochs; e++)
+    {
+        if(e % interval == 0 || e == epochs - 1)
+        {
+            loss = 0.0;
+            for (size_t j = 0; j < data.churnResults.size(); j++)
+                loss += computeLoss(data.churnResults[j], predict(data.features[j]));
+            loss /= data.churnResults.size();
+        }
         updateWeights(data, alpha);
     }
 }
@@ -95,4 +103,56 @@ double LogisticRegression::f1Score(const ProcessedData& test) const
     if (model_precision + model_recall == 0.0)
         return 0.0;
     return 2.0 * ((model_precision * model_recall) / (model_precision + model_recall));
+};
+
+void LogisticRegression::save(const std::string& filename) const
+{
+    using json = nlohmann::json;
+    Logger& logger = Logger::instance();
+
+    json dataToWrite;
+    dataToWrite["Weights"] = json::array();
+    for (size_t i = 0; i < weights.size(); ++i)
+        dataToWrite["Weights"].push_back(weights[i]);
+    dataToWrite["Bias"] = bias;
+    std::ofstream file(filename);
+    if (file.is_open())
+    {
+        file << dataToWrite.dump(4);
+        file.close();
+        logger.log("Model saved at " + filename);
+    }
+    else
+    {
+        logger.log("Unable to open file: " + filename);
+        throw std::runtime_error("Unable to open file");
+    }
+};
+
+void LogisticRegression::load(const std::string& filename)
+{
+    using json = nlohmann::json;
+    Logger& logger = Logger::instance();
+
+    std::ifstream file(filename);
+    if (file.is_open())
+    {
+        try {
+            json jsonFile;
+            file >> jsonFile;
+            file.close();
+            weights = Vector(jsonFile.at("Weights").get<std::vector<double>>());
+            bias = jsonFile.at("Bias").get<double>();
+            logger.log("Model successfully loaded from: " + filename);
+        }
+        catch (const json::exception& e) {
+            logger.log("JSON parsing error during load: " + std::string(e.what()));
+            throw std::runtime_error("JSON parsing error during load: " + std::string(e.what()));
+        }
+    }
+    else
+    {
+        logger.log("Unable to open file: " + filename);
+        throw std::runtime_error("Unable to open file: " + filename);
+    }
 };
