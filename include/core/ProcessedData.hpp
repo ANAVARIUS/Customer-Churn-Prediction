@@ -8,6 +8,6 @@ struct ProcessedData
 {
     Matrix features;
     std::vector<std::string> headers;
-    Vector churnResults;
+    Vector churnResults
 };
 #endif

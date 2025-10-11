@@ -12,6 +12,7 @@
 struct Splitter
 {
     virtual std::pair<ProcessedData, ProcessedData> split(const ProcessedData& data, const double ratio) = 0;
+    virtual ~Splitter() = default;
 };
 
 struct RandomSplitter : public Splitter
